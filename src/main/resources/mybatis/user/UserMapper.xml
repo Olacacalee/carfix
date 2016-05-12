@@ -5,4 +5,12 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.carfix.user.dao.UserDao">
 
+    <select id="getUserByUsername" resultType="User">
+        SELECT * from user where username = #{username}
+    </select>
+
+    <select id="getUserId" >
+        SELECT user_id from user where username='root'
+    </select>
+
 </mapper>

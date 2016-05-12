@@ -1,5 +1,6 @@
 package com.carfix.user.controller;
 
+import com.carfix.domain.User;
 import com.carfix.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,13 @@ public class UserCtl {
 
     @RequestMapping(value = "/user/test",method = RequestMethod.GET)
     @ResponseBody
-    public String getUserInfo(){
-        return userService.getUserInfo();
+    public User getUserInfo(String username){
+        return userService.getUserInfo(username);
+    }
+
+    @RequestMapping(value = "/user/test2",method = RequestMethod.GET)
+    @ResponseBody
+    public Long test(){
+        return userService.test();
     }
 }

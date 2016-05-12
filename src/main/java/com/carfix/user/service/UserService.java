@@ -1,5 +1,8 @@
 package com.carfix.user.service;
 
+import com.carfix.domain.User;
+import com.carfix.user.dao.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -7,7 +10,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService {
-    public String getUserInfo() {
-        return "李星";
+
+    @Autowired
+    private UserDao userDao;
+
+    public User getUserInfo(String username) {
+        return userDao.getUserByUsername(username);
+    }
+
+    public Long test() {
+        return userDao.getUserId();
     }
 }
