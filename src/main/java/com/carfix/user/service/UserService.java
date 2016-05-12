@@ -1,4 +1,4 @@
-package com.carfix.test.service;
+package com.carfix.user.service;
 
 import org.springframework.stereotype.Service;
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+       default-lazy-init="true">
+
+    <!--### api数据库的MyBatis配置 -->
+    <bean id="apiSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="parentDatasource" />
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <property name="typeAliasesPackage" value="com.carfix" />
+        <property name="mapperLocations" value="classpath:/mybatis/*/*Mapper.xml" />
+    </bean>
+
+    <!-- 扫描basePackage下所有dao -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.carfix" />
+        <property name="annotationClass" value="com.carfix.api.annotation.ApiRepository" />
+        <property name="sqlSessionFactoryBeanName" value="apiSqlSessionFactory" />
+    </bean>
+
+    <!-- 对apiDataSource 数据源进行事务管理 -->
+    <bean id="apiTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+        <property name="dataSource" ref="parentDatasource" />
+    </bean>
+    <!-- 使用annotation定义事务 -->
+    <tx:annotation-driven transaction-manager="apiTransactionManager" proxy-target-class="true" />
+
+
+</beans>

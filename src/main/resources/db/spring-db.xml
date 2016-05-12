@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-lazy-init="true">
+
+    <bean id="propertyPlaceholder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="locations" ref="sysConfig" />
+    </bean>
+
+    <!-- local development环境 -->
+    <beans profile="development" >
+        <util:list id="sysConfig">
+            <value>classpath*:/config.properties</value>
+            <value>classpath*:/config.development.properties</value>
+        </util:list>
+
+        <bean id="parentDatasource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+            <property name="maxActive" value="${jdbc.pool.maxActive}" />
+            <property name="maxIdle" value="${jdbc.pool.maxIdle}" />
+            <property name="minIdle" value="${jdbc.pool.minIdle}" />
+            <!-- 配置获取连接等待超时的时间 -->
+            <property name="maxWait" value="${jdbc.pool.maxWait}" />
+
+            <!-- 默认自动提交 -->
+            <property name="defaultAutoCommit" value="true" />
+            <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+            <property name="timeBetweenEvictionRunsMillis" value="${jdbc.pool.timeBetweenEvictionRunsMillis}" />
+            <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+            <property name="minEvictableIdleTimeMillis" value="${jdbc.pool.minEvictableIdleTimeMillis}" />
+
+        </bean>
+
+        <bean id="apiMasterDataSource" parent="parentDatasource">
+            <property name="driverClassName" value="${jdbc.driver.postgresql}" />
+            <property name="url" value="${api.jdbc.url}" />
+            <property name="username" value="${api.jdbc.username}" />
+            <property name="password" value="${api.jdbc.password}" />
+        </bean>
+    </beans>
+
+</beans>

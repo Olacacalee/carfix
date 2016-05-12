@@ -1,6 +1,6 @@
-package com.carfix.test.controller;
+package com.carfix.user.controller;
 
-import com.carfix.test.service.UserService;
+import com.carfix.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
