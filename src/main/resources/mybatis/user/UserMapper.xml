@@ -9,7 +9,7 @@
         SELECT * from user where username = #{username}
     </select>
 
-    <select id="getUserId" >
+    <select id="getUserId" resultType="Long">
         SELECT user_id from user where username='root'
     </select>
 

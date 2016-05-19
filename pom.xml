@@ -54,6 +54,12 @@
       <version>7.0.57</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.googlecode.log4jdbc</groupId>
+      <artifactId>log4jdbc</artifactId>
+      <version>1.2</version>
+    </dependency>
+
     <!-- DAO -->
     <dependency>
       <groupId>org.mybatis</groupId>

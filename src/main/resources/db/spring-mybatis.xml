@@ -10,7 +10,7 @@
 
     <!--### api数据库的MyBatis配置 -->
     <bean id="apiSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="parentDatasource" />
+        <property name="dataSource" ref="apiMasterDataSource" />
         <property name="configLocation" value="classpath:mybatis-config.xml" />
         <property name="typeAliasesPackage" value="com.carfix" />
         <property name="mapperLocations" value="classpath:/mybatis/*/*Mapper.xml" />
@@ -25,7 +25,7 @@
 
     <!-- 对apiDataSource 数据源进行事务管理 -->
     <bean id="apiTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
-        <property name="dataSource" ref="parentDatasource" />
+        <property name="dataSource" ref="apiMasterDataSource" />
     </bean>
     <!-- 使用annotation定义事务 -->
     <tx:annotation-driven transaction-manager="apiTransactionManager" proxy-target-class="true" />
