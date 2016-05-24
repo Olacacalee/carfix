@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.carfix.repertory.dao.FixingsDao">
+
+    <insert id="save" parameterType="Fixings">
+        INSERT INTO fixings (fixings_code,fixings_name,in_price,sale_price,stock,producer,brand,car_type,car_category,updated_at)
+        VALUES (#{fixingsCode},#{fixingsName},#{inPrice},#{salePrice},#{stock},#{producer},#{brand},#{carType},#{carCategory},now())
+    </insert>
+
+</mapper>
