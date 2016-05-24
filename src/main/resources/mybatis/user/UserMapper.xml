@@ -13,4 +13,9 @@
         SELECT user_id from user where username='root'
     </select>
 
+    <update id="update" parameterType="User">
+        update user set username=#{username},name=#{name},password=#{password},created_at=#{createdAt},updated_at=now()
+        where user_id = #{userId}
+    </update>
+
 </mapper>
